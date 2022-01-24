@@ -1,6 +1,7 @@
 package day01;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 
@@ -29,6 +30,8 @@ class OrderServiceTest {
         o2.addProduct(p3);
         o2.addProduct(p1);
         o2.addProduct(p2);
+        o2.addProduct(p4);
+        o2.addProduct(p4);
 
         Order o3 = new Order("pending", LocalDate.of(2021, 06, 07));
         o3.addProduct(p1);
@@ -50,5 +53,41 @@ class OrderServiceTest {
         orderService.saveOrder(o3);
         orderService.saveOrder(o4);
         orderService.saveOrder(o5);
+    }
+
+    @Test
+    void testFilterOrderByStatus() {
+        assertEquals(3, orderService.filterOrderByStatus("pending").size());
+        assertEquals(2, orderService.filterOrderByStatus("on delivery").size());
+    }
+
+    @Test
+    void testCountOrdersByStatus() {
+        assertEquals(3, orderService.countOrdersByStatus("pending"));
+        assertEquals(2, orderService.countOrdersByStatus("on delivery"));
+    }
+
+    @Test
+    void testFindOrdersBetweenDates() {
+        assertEquals(3, orderService.findOrdersBetweenDates(LocalDate.parse("2021-06-02"), LocalDate.parse("2021-06-10")).size());
+        assertEquals(2, orderService.findOrdersBetweenDates(LocalDate.parse("2021-05-02"), LocalDate.parse("2021-06-03")).size());
+    }
+
+    @Test
+    void testIsThereLessProduct() {
+        assertTrue(orderService.isThereLessProduct(4));
+        assertFalse(orderService.isThereLessProduct(2));
+    }
+
+    @Test
+    void testFindOrderWithMostProduct() {
+        assertEquals(orderService.getOrders().get(1), orderService.findOrderWithMostProduct());
+        assertNotEquals(orderService.getOrders().get(0), orderService.findOrderWithMostProduct());
+    }
+
+    @Test
+    void testFindOrdersWithProduct() {
+        assertEquals(4, orderService.findOrdersWithProductCategory("Book").size());
+        assertEquals(5, orderService.findOrdersWithProductCategory("IT").size());
     }
 }
