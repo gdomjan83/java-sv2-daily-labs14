@@ -1,4 +1,4 @@
-package week14.day01;
+package day01;
 
 import org.junit.jupiter.api.BeforeEach;
 
@@ -51,5 +51,4 @@ class OrderServiceTest {
         orderService.saveOrder(o4);
         orderService.saveOrder(o5);
     }
-
 }

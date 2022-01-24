@@ -1,4 +1,4 @@
-package week14.day01;
+package day01;
 
 public class Product {
 
