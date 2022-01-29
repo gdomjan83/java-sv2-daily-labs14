@@ -23,10 +23,10 @@ public class StreetNumbers {
             String key = line.split(" ")[0];
             List<Integer> values = result.get(line.split(" ")[0]);
             if (num == 0) {
-                result.get(key).add(2 + (countEvens(values) * 2));
+                result.get(key).add(2 + (countNumbers(values, num) * 2));
             }
             if (num == 1) {
-                result.get(key).add(1 + (countOdds(values) * 2));
+                result.get(key).add(1 + (countNumbers(values, num) * 2));
             }
         }
     }
@@ -47,14 +47,9 @@ public class StreetNumbers {
         return result;
     }
 
-    private int countOdds(List<Integer> input) {
+    private int countNumbers(List<Integer> input, int remainder) {
         return (int) input.stream()
-                .filter(l -> l % 2 != 0)
-                .count();
-    }
-    private int countEvens(List<Integer> input) {
-        return (int) input.stream()
-                .filter(l -> l % 2 == 0)
+                .filter(l -> l % 2 == remainder)
                 .count();
     }
 }
